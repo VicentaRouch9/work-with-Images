@@ -28,5 +28,13 @@ namespace ImageSaver.Pages
             //var dao = new ImageDAO();
             //dao.DownloadAndSaveAllImages(from_url, to_path);
         }
+
+        protected void ImageItemDataSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+            var id = (e.InputParameters["item"] as ImageItem).ID;
+            var item = new ImageDAO().GetImageItem(id);
+            var path = Server.MapPath(WebConfigurationManager.AppSettings["DestinationDirectory"]);
+            File.Delete(path);
+        }
     }
 }

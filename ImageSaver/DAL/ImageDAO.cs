@@ -60,9 +60,6 @@ namespace ImageSaver.DAL
 
         public void DeleteImageItem(ImageItem item)
         {
-            //var FileName = GetImageItem(item.ID).FileName;
-            //File.Delete(Path.Combine(from_path, FileName));
-
             using (var con = new SqlConnection(connectionString))
             {
                 using (var cmd = new SqlCommand("DeleteImageItem", con))

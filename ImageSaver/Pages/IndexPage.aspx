@@ -15,7 +15,8 @@
                 DeleteMethod="DeleteImageItem"
                 InsertMethod="InsertImageItem"
                 SelectMethod="GetAllImageItems"
-                TypeName="ImageSaver.DAL.ImageDAO">
+                TypeName="ImageSaver.DAL.ImageDAO" OnDeleting="ImageItemDataSource_Deleting" >
+                
             </asp:ObjectDataSource>
 
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ImageItemDataSource" DataKeyNames="ID" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
