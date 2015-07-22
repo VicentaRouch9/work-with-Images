@@ -16,6 +16,7 @@ namespace ImageSaver.DAL
     {
         private string connectionString;
         private List<string> _extensions = new List<string>() { ".gif", ".jpg", ".jpeg", ".png" };
+        public string ServerPathForDownloads { get; set; }
 
         public ImageDAO()
         {
@@ -57,8 +58,11 @@ namespace ImageSaver.DAL
             }
         }
 
-        public void DeleteImageItem(int id)
+        public void DeleteImageItem(ImageItem item)
         {
+            //var FileName = GetImageItem(item.ID).FileName;
+            //File.Delete(Path.Combine(from_path, FileName));
+
             using (var con = new SqlConnection(connectionString))
             {
                 using (var cmd = new SqlCommand("DeleteImageItem", con))
@@ -66,7 +70,7 @@ namespace ImageSaver.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
-                    cmd.Parameters["@ID"].Value = id;
+                    cmd.Parameters["@ID"].Value = item.ID;
 
                     try
                     {
@@ -80,14 +84,6 @@ namespace ImageSaver.DAL
                 }
             }
         }
-
-        public void DeleteImageItem(ImageItem item)
-        {
-            int itemID = item.ID;
-            item.Delete();
-            DeleteImageItem(itemID);
-        }
-
 
         public ImageItem GetImageItem(int id)
         {

@@ -15,14 +15,18 @@ namespace ImageSaver.Pages
 {
     public partial class IndexPage : System.Web.UI.Page
     {
+        protected string DestinationDirectory
+        {
+            get { return WebConfigurationManager.AppSettings["DestinationDirectory"]; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) return;
 
-            var from_url = WebConfigurationManager.AppSettings["SourceUrl"];
-            var to_path = Server.MapPath(WebConfigurationManager.AppSettings["DestinationDirectory"]);
-            var dao = new ImageDAO();
-            dao.DownloadAndSaveAllImages(from_url, to_path);
+            //var from_url = WebConfigurationManager.AppSettings["SourceUrl"];
+            //var to_path = Server.MapPath(WebConfigurationManager.AppSettings["DestinationDirectory"]);
+            //var dao = new ImageDAO();
+            //dao.DownloadAndSaveAllImages(from_url, to_path);
         }
     }
 }

@@ -15,11 +15,5 @@ namespace ImageSaver.DAL.Entities
 
         public string FileName { get; set; }
         public byte[] ImageData { get;  set; }
-
-        public void Delete()
-        {
-            File.Delete(Path.Combine(WebConfigurationManager.AppSettings["DestinationDir"], FileName));
-        }
-
     }
 }
