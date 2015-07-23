@@ -1,5 +1,4 @@
-﻿using HtmlAgilityPack;
-using ImageSaver.DAL;
+﻿using ImageSaver.DAL;
 using ImageSaver.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,7 +33,6 @@ namespace ImageSaver.Pages
         {
             if (IsPostBack) return;
 
-            //new ImageDAO().DownloadAndSaveAllImages(DownloadUrl, DestinationDirectory);
         }
 
         protected void ImageItemDataSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
@@ -45,9 +43,15 @@ namespace ImageSaver.Pages
             if (File.Exists(filepath)) File.Delete(filepath);
         }
 
-        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        protected void DownloadButton_Click(object sender, EventArgs e)
         {
+            new ImageDAO().DownloadAndSaveAllImages(DownloadUrl, DestinationDirectory);
+            
+        }
 
+        protected void RemoveAllButton_Click(object sender, EventArgs e)
+        {
+            new ImageDAO().DeleteAllImageItemsAndFiles(DestinationDirectory);
         }
     }
 }

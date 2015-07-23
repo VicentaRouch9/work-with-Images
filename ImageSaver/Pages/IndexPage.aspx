@@ -10,14 +10,10 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:ObjectDataSource runat="server" ID="ImageItemDataSource"
-                DataObjectTypeName="ImageSaver.DAL.Entities.ImageItem"
-                DeleteMethod="DeleteImageItem"
-                InsertMethod="InsertImageItem"
-                SelectMethod="GetAllImageItems"
-                TypeName="ImageSaver.DAL.ImageDAO" OnDeleting="ImageItemDataSource_Deleting"></asp:ObjectDataSource>
+            <asp:Button ID="DownloadButton" runat="server" Text="Download" OnClick="DownloadButton_Click" PostBackUrl="~/Pages/IndexPage.aspx" />
+            <asp:Button ID="RemoveAllButton" runat="server" Text="Remove All" OnClick="RemoveAllButton_Click" PostBackUrl="~/Pages/IndexPage.aspx" />
 
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ImageItemDataSource" DataKeyNames="ID" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ImageItemDataSource" DataKeyNames="ID" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" AllowPaging="True" EnableViewState="False">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" Visible="False"></asp:BoundField>
                     <asp:BoundField DataField="Url" HeaderText="Url" SortExpression="Url"></asp:BoundField>
@@ -52,6 +48,12 @@
                 <SortedDescendingHeaderStyle BackColor="#00547E"></SortedDescendingHeaderStyle>
             </asp:GridView>
 
+            <asp:ObjectDataSource runat="server" ID="ImageItemDataSource"
+                DataObjectTypeName="ImageSaver.DAL.Entities.ImageItem"
+                DeleteMethod="DeleteImageItem"
+                InsertMethod="InsertImageItem"
+                SelectMethod="GetAllImageItems"
+                TypeName="ImageSaver.DAL.ImageDAO" OnDeleting="ImageItemDataSource_Deleting"></asp:ObjectDataSource>
         </div>
     </form>
 </body>

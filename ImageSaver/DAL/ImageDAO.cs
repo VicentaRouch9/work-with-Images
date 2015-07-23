@@ -207,5 +207,36 @@ namespace ImageSaver.DAL
                 }
             }
         }
+
+        public void DeleteAllImageItems()
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand("DeleteAllImageItems", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException)
+                    {
+                        throw new ApplicationException("Data access error");
+                    }
+                }
+            }
+        }
+        public void DeleteAllImageItemsAndFiles(string path)
+        {
+            DeleteAllImageItems();
+
+            if (Directory.Exists(path))
+            {
+                foreach (var file in Directory.GetFiles(path))
+                    if (File.Exists(file)) File.Delete(file);
+            }
+        }
     }
 }

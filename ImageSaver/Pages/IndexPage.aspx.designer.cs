@@ -22,13 +22,22 @@ namespace ImageSaver.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// ImageItemDataSource элемент управления.
+        /// DownloadButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ImageItemDataSource;
+        protected global::System.Web.UI.WebControls.Button DownloadButton;
+        
+        /// <summary>
+        /// RemoveAllButton элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RemoveAllButton;
         
         /// <summary>
         /// GridView1 элемент управления.
@@ -38,5 +47,14 @@ namespace ImageSaver.Pages {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// ImageItemDataSource элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ImageItemDataSource;
     }
 }
