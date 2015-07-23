@@ -32,7 +32,6 @@ namespace ImageSaver.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) return;
-
         }
 
         protected void ImageItemDataSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
@@ -46,7 +45,6 @@ namespace ImageSaver.Pages
         protected void DownloadButton_Click(object sender, EventArgs e)
         {
             new ImageDAO().DownloadAndSaveAllImages(DownloadUrl, DestinationDirectory);
-            
         }
 
         protected void RemoveAllButton_Click(object sender, EventArgs e)

@@ -19,12 +19,12 @@
                     <asp:BoundField DataField="Url" HeaderText="Url" SortExpression="Url"></asp:BoundField>
                     <asp:TemplateField HeaderText="ImageFromFile">
                         <ItemTemplate>
-                            <asp:Image runat="server" ImageUrl='<%#"/Downloads/"+(string)Eval("FileName") %>' Width="100" />
+                            <asp:Image runat="server" ImageUrl='<%# DestinationDirectoryName + "/"+(string)Eval("FileName") %>' Width="80" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="ImageFromDataBase">
                         <ItemTemplate>
-                            <asp:Image runat="server" ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("ImageData")) %>' Width="100" />
+                            <asp:Image runat="server" ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("ImageData")) %>' Width="80" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:CommandField ShowDeleteButton="True"></asp:CommandField>
@@ -53,7 +53,7 @@
                 DeleteMethod="DeleteImageItem"
                 InsertMethod="InsertImageItem"
                 SelectMethod="GetAllImageItems"
-                TypeName="ImageSaver.DAL.ImageDAO" OnDeleting="ImageItemDataSource_Deleting"></asp:ObjectDataSource>
+                TypeName="ImageSaver.DAL.ImageDAO" OnDeleting="ImageItemDataSource_Deleting" EnableViewState="False"></asp:ObjectDataSource>
         </div>
     </form>
 </body>

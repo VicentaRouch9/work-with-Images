@@ -16,7 +16,6 @@ namespace ImageSaver.DAL
     {
         private string connectionString;
         private List<string> _extensions = new List<string>() { ".gif", ".jpg", ".jpeg", ".png" };
-        public string ServerPathForDownloads { get; set; }
 
         public ImageDAO()
         {
@@ -179,28 +178,35 @@ namespace ImageSaver.DAL
 
         public void DownloadAndSaveAllImages(string from_url, string to_path)
         {
-            var url = new Uri(from_url);
+            var baseUrl = new Uri(from_url);
 
             using (var webClient = new WebClient())
             {
                 HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(webClient.DownloadString(url));
+                doc.LoadHtml(webClient.DownloadString(baseUrl));
 
                 var nodes = doc.DocumentNode.SelectNodes("//img[@src]");
 
-                foreach (var node in nodes)
+                var urls = new SortedSet<string>();
+                foreach (var item in nodes)
                 {
-                    var src_attr = node.Attributes["src"].Value;
-                    string extention = Path.GetExtension(src_attr);
+                    urls.Add(item.Attributes["src"].Value.Trim());
+                }
+
+                foreach (var url in urls)
+                {
+                    string extention = Path.GetExtension(url);
                     if (_extensions.Contains(extention))
                     {
-                        var fileUrl = new Uri(url, src_attr);
-                        string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUrl.ToString());
-                        string fullFilePath = Path.Combine(to_path, newFileName);
+                        string fileUrl = new Uri(baseUrl, url).ToString();
+                        string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUrl);
+                        string fullFileName = Path.Combine(to_path, newFileName);
 
-                        webClient.DownloadFile(fileUrl, fullFilePath);
+                        webClient.DownloadFile(fileUrl, fullFileName);
+                        byte[] imageData;
 
-                        var imageData = File.ReadAllBytes(fullFilePath);
+                        if (File.Exists(fullFileName)) imageData = File.ReadAllBytes(fullFileName);
+                        else imageData = new byte[0];
 
                         InsertImageItem(new ImageItem { FileName = newFileName, Url = fileUrl.ToString(), ImageData = imageData });
                     }
