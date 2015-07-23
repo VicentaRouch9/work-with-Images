@@ -15,26 +15,39 @@ namespace ImageSaver.Pages
 {
     public partial class IndexPage : System.Web.UI.Page
     {
-        protected string DestinationDirectory
+        #region properties
+        protected string DestinationDirectoryName
         {
             get { return WebConfigurationManager.AppSettings["DestinationDirectory"]; }
         }
+        protected string DestinationDirectory
+        {
+            get { return Server.MapPath(DestinationDirectoryName); }
+        }
+        protected string DownloadUrl
+        {
+            get { return WebConfigurationManager.AppSettings["SourceUrl"]; }
+        }
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) return;
 
-            //var from_url = WebConfigurationManager.AppSettings["SourceUrl"];
-            //var to_path = Server.MapPath(WebConfigurationManager.AppSettings["DestinationDirectory"]);
-            //var dao = new ImageDAO();
-            //dao.DownloadAndSaveAllImages(from_url, to_path);
+            //new ImageDAO().DownloadAndSaveAllImages(DownloadUrl, DestinationDirectory);
         }
 
         protected void ImageItemDataSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var id = (e.InputParameters["item"] as ImageItem).ID;
-            var item = new ImageDAO().GetImageItem(id);
-            var path = Server.MapPath(WebConfigurationManager.AppSettings["DestinationDirectory"]);
-            File.Delete(path);
+            var img = new ImageDAO().GetImageItem(id);
+            var filepath = Path.Combine(DestinationDirectory, img.FileName);
+            if (File.Exists(filepath)) File.Delete(filepath);
+        }
+
+        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+
         }
     }
 }
